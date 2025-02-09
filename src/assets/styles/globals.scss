@@ -9,6 +9,16 @@ body {
 	height: 100%;
 }
 
+input {
+	@apply rounded-lg py-2 px-4 w-full block outline-0 bg-gray-800 border-gray-700 border-[1px] text-white outline-none;
+
+	&::placeholder {
+		color: #7c7a83;
+	}
+}
+
+/* Custom scrollbar */
+
 ::-webkit-scrollbar {
 	width: 8px;
 }
@@ -19,4 +29,28 @@ body {
 
 ::-webkit-scrollbar-thumb {
 	@apply bg-gray-500 rounded-full;
+}
+
+/* Slide animation */
+
+.slide-animation-enter {
+	opacity: 0;
+	transform: scale(0.9);
+}
+.slide-animation-enter-active {
+	opacity: 1;
+	transform: translateX(0);
+	transition:
+		opacity 300ms,
+		transform 300ms;
+}
+.slide-animation-exit {
+	opacity: 1;
+}
+.slide-animation-exit-active {
+	opacity: 0;
+	transform: scale(0.9);
+	transition:
+		opacity 300ms,
+		transform 300ms;
 }

@@ -4,16 +4,26 @@ import SkeletonLoader from '@/components/ui/SkeletonLoader'
 import formStyles from '@/components/ui/form-elements/AdminForm.module.scss'
 import Button from '@/components/ui/form-elements/button/Button'
 import Field from '@/components/ui/form-elements/field/Field'
+import SlugField from '@/components/ui/form-elements/slug-field/SlugField'
 import Heading from '@/components/ui/heading/Heading'
 
 import { IGenreEditInput } from '@/types/genre.types'
 
+import generateSlug from '@/utils/string/generateSlug'
+
 import { useGenreEdit } from './useGenreEdit'
-import { useForm } from 'react-hook-form'
+import dynamic from 'next/dynamic'
+import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css'
+import { Controller, useForm } from 'react-hook-form'
 
 interface IGenreEdit {
 	genreId: string
 }
+
+const DynamicTextEditor = dynamic(
+	() => import('@/components/ui/form-elements/text-editor/TextEditor'),
+	{ ssr: false }
+)
 
 const GenreEdit: React.FC<IGenreEdit> = ({ genreId }) => {
 	const { genre, onSubmit, isLoading } = useGenreEdit(genreId)
@@ -34,6 +44,8 @@ const GenreEdit: React.FC<IGenreEdit> = ({ genreId }) => {
 			icon: genre?.icon! || ''
 		}
 	})
+
+	console.log(getValues('description'), '<><><><><>><')
 
 	return (
 		<div className='px-6'>
@@ -58,7 +70,15 @@ const GenreEdit: React.FC<IGenreEdit> = ({ genreId }) => {
 								style={{ width: '31%' }}
 							/>
 
-							{/* Slug field */}
+							<div style={{ width: '31%' }}>
+								<SlugField
+									register={register}
+									error={errors.slug}
+									generate={() =>
+										setValue('slug', generateSlug(getValues('name')))
+									}
+								/>
+							</div>
 
 							<Field
 								{...register('icon', {
@@ -69,6 +89,26 @@ const GenreEdit: React.FC<IGenreEdit> = ({ genreId }) => {
 								style={{ width: '31%' }}
 							/>
 						</div>
+
+						<Controller
+							name='description'
+							control={control}
+							render={({
+								field: { value, onChange },
+								fieldState: { error }
+							}) => {
+								console.log(value, 'asdasd')
+
+								return (
+									<DynamicTextEditor
+										placeholder='Описание'
+										onChange={onChange}
+										error={error}
+										value={value}
+									/>
+								)
+							}}
+						/>
 
 						<Button>Сохранить</Button>
 					</>
