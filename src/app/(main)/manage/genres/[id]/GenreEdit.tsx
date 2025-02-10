@@ -13,7 +13,7 @@ import generateSlug from '@/utils/string/generateSlug'
 
 import { useGenreEdit } from './useGenreEdit'
 import dynamic from 'next/dynamic'
-import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css'
+import { FC } from 'react'
 import { Controller, useForm } from 'react-hook-form'
 
 interface IGenreEdit {
@@ -22,10 +22,12 @@ interface IGenreEdit {
 
 const DynamicTextEditor = dynamic(
 	() => import('@/components/ui/form-elements/text-editor/TextEditor'),
-	{ ssr: false }
+	{
+		ssr: false
+	}
 )
 
-const GenreEdit: React.FC<IGenreEdit> = ({ genreId }) => {
+const GenreEdit: FC<IGenreEdit> = ({ genreId }) => {
 	const { genre, onSubmit, isLoading } = useGenreEdit(genreId)
 
 	const {
@@ -45,13 +47,10 @@ const GenreEdit: React.FC<IGenreEdit> = ({ genreId }) => {
 		}
 	})
 
-	console.log(getValues('description'), '<><><><><>><')
-
 	return (
 		<div className='px-6'>
 			<Heading>Настройка жанра</Heading>
-
-			<form className={formStyles.form} onSubmit={handleSubmit(onSubmit)}>
+			<form onSubmit={handleSubmit(onSubmit)} className={formStyles.form}>
 				{isLoading ? (
 					<div className='space-y-4'>
 						{Array.from({ length: 3 }).map((_, index) => (
@@ -63,7 +62,7 @@ const GenreEdit: React.FC<IGenreEdit> = ({ genreId }) => {
 						<div className={formStyles.fields}>
 							<Field
 								{...register('name', {
-									required: 'Название не может быть пустым!'
+									required: 'Название обязательно'
 								})}
 								placeholder='Название'
 								error={errors.name}
@@ -72,17 +71,17 @@ const GenreEdit: React.FC<IGenreEdit> = ({ genreId }) => {
 
 							<div style={{ width: '31%' }}>
 								<SlugField
-									register={register}
-									error={errors.slug}
 									generate={() =>
 										setValue('slug', generateSlug(getValues('name')))
 									}
+									register={register}
+									error={errors.slug}
 								/>
 							</div>
 
 							<Field
 								{...register('icon', {
-									required: 'Иконка обязательна!'
+									required: 'Иконка обязательна'
 								})}
 								placeholder='Иконка'
 								error={errors.name}
@@ -96,18 +95,14 @@ const GenreEdit: React.FC<IGenreEdit> = ({ genreId }) => {
 							render={({
 								field: { value, onChange },
 								fieldState: { error }
-							}) => {
-								console.log(value, 'asdasd')
-
-								return (
-									<DynamicTextEditor
-										placeholder='Описание'
-										onChange={onChange}
-										error={error}
-										value={value}
-									/>
-								)
-							}}
+							}) => (
+								<DynamicTextEditor
+									placeholder='Описание'
+									onChange={onChange}
+									error={error}
+									value={value}
+								/>
+							)}
 						/>
 
 						<Button>Сохранить</Button>

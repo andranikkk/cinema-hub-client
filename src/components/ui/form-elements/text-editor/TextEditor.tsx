@@ -6,10 +6,11 @@ import cn from 'clsx'
 import { ContentState, EditorState, convertToRaw } from 'draft-js'
 import draftToHtml from 'draftjs-to-html'
 import htmlToDraft from 'html-to-draftjs'
-import { useEffect, useState } from 'react'
+import { FC, useEffect, useState } from 'react'
 import { Editor } from 'react-draft-wysiwyg'
+import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css'
 
-const TextEditor: React.FC<ITextEditor> = ({
+const TextEditor: FC<ITextEditor> = ({
 	onChange,
 	placeholder,
 	value,
@@ -20,7 +21,7 @@ const TextEditor: React.FC<ITextEditor> = ({
 	const [isUpdated, setIsUpdated] = useState(false)
 
 	useEffect(() => {
-		if (!isUpdated) return
+		if (isUpdated) return
 
 		const defaultValue = value || ''
 		const blocksFromHtml = htmlToDraft(defaultValue)
@@ -44,7 +45,7 @@ const TextEditor: React.FC<ITextEditor> = ({
 	}
 
 	return (
-		<div className={(cn(styles.editor_wrapper), 'animate-fade')}>
+		<div className={cn(styles.editor_wrapper, 'animate-fade')}>
 			<label>
 				<span>{placeholder}</span>
 
@@ -77,7 +78,6 @@ const TextEditor: React.FC<ITextEditor> = ({
 					/>
 				</div>
 			</label>
-
 			{error && <div className={styles.error}>{error.message}</div>}
 		</div>
 	)

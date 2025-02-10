@@ -3,7 +3,11 @@
 
 	> label {
 		> span {
-			@apply text-[15px] font-medium to-gray-600;
+			@apply text-[15px] font-medium text-gray-600;
+		}
+
+		> input {
+			@apply mt-2;
 		}
 	}
 }
