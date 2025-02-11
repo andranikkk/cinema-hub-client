@@ -28,7 +28,7 @@ const Actors: React.FC = () => {
 
 			<AdminList
 				listItems={actors || []}
-				headerItems={['Имя', 'Ссылка']}
+				headerItems={['Имя', 'Ссылка', 'Количество фильмов']}
 				isLoading={isLoading}
 				removeHandler={deleteAsync}
 			/>

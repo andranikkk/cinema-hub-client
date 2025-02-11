@@ -8,7 +8,7 @@ export const metadata: Metadata = {
 	...NO_INDEX_PAGE
 }
 
-export default function actorsPage() {
+export default function ActorsPage() {
 	return (
 		<div>
 			<Actors />
