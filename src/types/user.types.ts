@@ -15,5 +15,5 @@ export interface IUser {
 	favorites: IMovie[]
 }
 
-export interface IEditUserInput
+export interface IUserEditInput
 	extends Pick<IUser, 'name' | 'email' | 'role'> {}

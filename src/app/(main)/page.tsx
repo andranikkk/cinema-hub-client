@@ -1,5 +1,68 @@
-import Home from './Home'
+import { IGalleryItem } from '@/components/ui/gallery/gallery.interface'
+import { ISlide } from '@/components/ui/slider/slider.interface'
 
-export default function HomePage() {
-	return <Home />
+import { PUBLIC_URL } from '@/config/url.config'
+
+import { actorService } from '@/services/actor.service'
+import { movieService } from '@/services/movie.service'
+
+import { getGenresList } from '@/utils/movie/getGenresList'
+import { getMovieWordWithEnding } from '@/utils/string/getMovieWordWithEnding'
+
+import Home from './Home'
+import { Metadata } from 'next'
+
+export const metadata: Metadata = {
+	title: 'Главная | CinemaHub'
+}
+
+export const revalidate = 60
+
+async function getContent() {
+	const movies = await movieService.getAll()
+
+	const slides: ISlide[] = movies
+		.map(movie => ({
+			id: movie.id,
+			link: PUBLIC_URL.movie(movie.slug),
+			subTitle: getGenresList(movie.genres),
+			title: movie.title,
+			bigPoster: movie.bigPoster
+		}))
+		.slice(0, 5)
+
+	const dataTrendingMovies = await movieService.getMostPopularMovies()
+
+	const trendingMovies: IGalleryItem[] = dataTrendingMovies
+		.slice(0, 6)
+		.map(movie => ({
+			name: movie.title,
+			poster: movie.poster,
+			link: PUBLIC_URL.movie(movie.slug),
+			content: {
+				title: movie.title,
+				subTitle: movie.genres[0].name
+			}
+		}))
+
+	const dataActors = await actorService.getAll()
+
+	const actors: IGalleryItem[] = dataActors.slice(0, 6).map(actor => ({
+		name: actor.name,
+		poster: actor.photoUrl,
+		link: PUBLIC_URL.actor(actor.slug),
+		content: {
+			title: actor.name,
+			subTitle: getMovieWordWithEnding(actor.movies.length)
+		}
+	}))
+
+	return { slides, trendingMovies, actors }
+}
+
+export default async function HomePage() {
+	const { slides, actors, trendingMovies } = await getContent()
+	return (
+		<Home slides={slides} actors={actors} trendingMovies={trendingMovies} />
+	)
 }

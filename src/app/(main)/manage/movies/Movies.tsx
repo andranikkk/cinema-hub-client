@@ -28,7 +28,7 @@ const Movies: React.FC = () => {
 
 			<AdminList
 				listItems={movies || []}
-				headerItems={['']}
+				headerItems={['Название', 'Жанры', 'Просмотры']}
 				isLoading={isLoading}
 				removeHandler={deleteAsync}
 			/>

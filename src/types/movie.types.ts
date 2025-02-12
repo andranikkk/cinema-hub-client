@@ -20,6 +20,6 @@ export interface IMovie {
 
 export interface IMovieEditInput
 	extends Omit<IMovie, 'id' | 'views' | 'reviews' | 'genres' | 'actors'> {
-	// genres: string[]
-	// actors: string[]
+	genres: string[]
+	actors: string[]
 }
