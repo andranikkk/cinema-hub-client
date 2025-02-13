@@ -2,7 +2,7 @@ import { axiosWithAuth } from '@/api/interceptors'
 
 import { API_URL } from '@/config/api.config'
 
-import { IEditUserInput, IUser } from '@/types/user.types'
+import { IUser, IUserEditInput } from '@/types/user.types'
 
 class UserService {
 	async getAll(searchTerm?: string) {
@@ -40,7 +40,7 @@ class UserService {
 		return axiosWithAuth.get<IUser>(API_URL.users(`/by-id/${id}`))
 	}
 
-	async update(id: string, data: IEditUserInput) {
+	async update(id: string, data: IUserEditInput) {
 		return axiosWithAuth.put<string>(API_URL.users(`/${id}`), data)
 	}
 

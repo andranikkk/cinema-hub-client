@@ -1,6 +1,6 @@
 .arrow {
 	@apply flex items-center justify-center rounded-full bg-white/30
-   text-white text-2xl p-3 animate-fade absolute z-30 bottom-8;
+   text-white text-2xl p-3 animate-fade absolute z-30 bottom-8 border-[1px] border-neutral-400;
 
 	&.left {
 		@apply right-24;
