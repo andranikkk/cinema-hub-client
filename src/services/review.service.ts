@@ -4,7 +4,7 @@ import { API_URL } from '@/config/api.config'
 
 import { IReview } from '@/types/review.types'
 
-type TypeData = {
+export type TypeData = {
 	rating: number
 	text: string
 }

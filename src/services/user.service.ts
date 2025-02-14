@@ -33,7 +33,9 @@ class UserService {
 	}
 
 	async toggleFavorite(movieId: string) {
-		return axiosWithAuth.post(API_URL.users('/profile/favorites'), movieId)
+		return axiosWithAuth.post(API_URL.users('/profile/favorites'), {
+			movieId
+		})
 	}
 
 	async getById(id: string) {

@@ -58,7 +58,11 @@ export default async function ActorPage({ params }: IPageSlugParam) {
 
 	return (
 		<div className='px-6'>
-			<Catalog title={actor.name} movies={movies} />
+			<Catalog
+				title={actor.name}
+				movies={movies}
+				description={actor.description}
+			/>
 		</div>
 	)
 }

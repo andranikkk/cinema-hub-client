@@ -6,6 +6,7 @@ export interface IActor {
 	slug: string
 	photoUrl: string
 	movies: IMovie[]
+	description?: string
 }
 
 export interface IActorEditInput extends Omit<IActor, 'id' | 'movies'> {}
