@@ -10,7 +10,7 @@ export type TypeData = {
 }
 
 class ReviewService {
-	async getAll(searchTerm?: string) {
+	async getAll() {
 		const { data } = await axiosWithAuth.get<IReview[]>(API_URL.reviews(''))
 
 		return data

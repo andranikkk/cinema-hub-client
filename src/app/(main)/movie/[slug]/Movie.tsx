@@ -25,7 +25,7 @@ const Movie: React.FC<IMovieProps> = ({
 	slug = ''
 }) => {
 	const { data: movie } = useQuery({
-		queryKey: ['get movie', initialMovie.slug],
+		queryKey: ['get movie', initialMovie.id],
 		queryFn: () => movieService.getBySlug(slug),
 		initialData: initialMovie,
 		enabled: !!slug

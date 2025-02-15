@@ -34,7 +34,9 @@ const LeaveReviewForm: FC<ILeaveReviewForm> = ({ movieId, setModalOpen }) => {
 		mutationFn: (data: TypeData) => reviewService.leave(movieId, data),
 		onSuccess() {
 			toast.success('Отзыв успешно опубликован!')
-			queryClient.invalidateQueries({ queryKey: ['get movie', movieId] })
+			queryClient.refetchQueries({
+				queryKey: ['get movie', movieId]
+			})
 			setModalOpen(false)
 		}
 	})
