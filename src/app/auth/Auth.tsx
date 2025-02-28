@@ -32,47 +32,49 @@ const Auth: React.FC = () => {
 	return (
 		<div className={styles.wrapper}>
 			<div className={styles.left}>
-				<div className={styles.content}>
-					<Heading className={styles.heading}>
-						{isLoginForm ? 'Авторизация' : 'Регистрация'}
-					</Heading>
-					<form onSubmit={handleSubmit(onSubmit)}>
-						<AuthFields
-							register={register}
-							errors={errors}
-							isLoginForm={isLoginForm}
-						/>
-						<Button className={styles.button}>
-							{isLoginForm ? 'Войти' : 'Зарегистрироваться'}
-						</Button>
-						{isLoginForm ? (
-							<div className={styles.redirect}>
-								<p>У вас нет аккаунта?</p>
-								<button
-									type='button'
-									onClick={() =>
-										setIsLoginForm(isLoginForm ? false : true)
-									}
-									className={styles.redirectButton}
-								>
-									Зарегистрироваться
-								</button>
-							</div>
-						) : (
-							<div className={styles.redirect}>
-								<p>Уже есть аккаунт?</p>
-								<button
-									type='button'
-									onClick={() =>
-										setIsLoginForm(isLoginForm ? false : true)
-									}
-									className={styles.redirectButton}
-								>
-									Войти
-								</button>
-							</div>
-						)}
-					</form>
+				<div className={styles.left_box}>
+					<div className={styles.content}>
+						<Heading className={styles.heading}>
+							{isLoginForm ? 'Авторизация' : 'Регистрация'}
+						</Heading>
+						<form onSubmit={handleSubmit(onSubmit)}>
+							<AuthFields
+								register={register}
+								errors={errors}
+								isLoginForm={isLoginForm}
+							/>
+							<Button className={styles.button}>
+								{isLoginForm ? 'Войти' : 'Зарегистрироваться'}
+							</Button>
+							{isLoginForm ? (
+								<div className={styles.redirect}>
+									<p>У вас нет аккаунта?</p>
+									<button
+										type='button'
+										onClick={() =>
+											setIsLoginForm(isLoginForm ? false : true)
+										}
+										className={styles.redirectButton}
+									>
+										Зарегистрироваться
+									</button>
+								</div>
+							) : (
+								<div className={styles.redirect}>
+									<p>Уже есть аккаунт?</p>
+									<button
+										type='button'
+										onClick={() =>
+											setIsLoginForm(isLoginForm ? false : true)
+										}
+										className={styles.redirectButton}
+									>
+										Войти
+									</button>
+								</div>
+							)}
+						</form>
+					</div>
 				</div>
 			</div>
 			<div className={styles.right}>
